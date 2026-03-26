@@ -365,10 +365,13 @@ body.light .qnav-dot.flagged-dot{box-shadow:0 0 0 2px #8a6518, 0 0 0 4px rgba(17
 .snake-btn.primary:hover{background:var(--gold-light);}
 .snake-btn.active{background:var(--gold-dim);border-color:var(--gold);color:var(--gold-light);box-shadow:0 0 0 1px rgba(240,179,90,.28) inset;}
 .snake-foot{margin-top:.7rem;color:var(--gray);font-size:.74rem;text-align:center;}
-.snake-touch-controls{display:none;align-items:center;justify-content:center;flex-direction:column;gap:.45rem;margin-top:.9rem;}
+.snake-touch-controls{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.45rem;margin-top:.9rem;}
 .snake-touch-mid{display:flex;gap:.7rem;align-items:center;justify-content:center;}
 .snake-touch-btn{width:56px;height:56px;border-radius:14px;border:1px solid var(--navy-light);background:var(--navy);color:var(--gold-light);font-family:var(--font-title);font-size:1.15rem;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation;box-shadow:0 6px 14px rgba(0,0,0,.18);}
 .snake-touch-btn:active{transform:scale(.97);background:var(--gold-dim);border-color:var(--gold);}
+@media (hover:hover) and (pointer:fine){
+  .snake-touch-controls{display:none;}
+}
 /* ── RADIOGRAPHY ── */
 .radio-wrap{margin-top:1.5rem;text-align:left;}
 .radio-title{font-family:'Manrope',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;}
