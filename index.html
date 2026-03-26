@@ -254,6 +254,7 @@ main{max-width:780px;margin:0 auto;padding:2.5rem 1.5rem 6rem;}
   .exam-hist-row{flex-direction:column;align-items:flex-start;gap:.2rem;}
   .shortcut-panel{left:12px;right:12px;top:64px;min-width:auto;max-width:none;}
   .app-card,.leave-card,#study-guide-modal .app-card{width:min(96vw,760px);}
+  .snake-touch-controls{display:flex;}
 }
 
 @media(max-width:420px){
@@ -265,6 +266,7 @@ main{max-width:780px;margin:0 auto;padding:2.5rem 1.5rem 6rem;}
   .home-card{padding:1rem .9rem;}
   .btn-primary,.btn-secondary,.retry-wrong-btn{padding:.85rem 1rem;font-size:.82rem;}
   .qnav-dot{width:26px;height:26px;font-size:.65rem;}
+  .snake-touch-btn{width:52px;height:52px;border-radius:12px;}
 }
 
 /* ── HISTORY ── */
@@ -363,6 +365,10 @@ body.light .qnav-dot.flagged-dot{box-shadow:0 0 0 2px #8a6518, 0 0 0 4px rgba(17
 .snake-btn.primary:hover{background:var(--gold-light);}
 .snake-btn.active{background:var(--gold-dim);border-color:var(--gold);color:var(--gold-light);box-shadow:0 0 0 1px rgba(240,179,90,.28) inset;}
 .snake-foot{margin-top:.7rem;color:var(--gray);font-size:.74rem;text-align:center;}
+.snake-touch-controls{display:none;align-items:center;justify-content:center;flex-direction:column;gap:.45rem;margin-top:.9rem;}
+.snake-touch-mid{display:flex;gap:.7rem;align-items:center;justify-content:center;}
+.snake-touch-btn{width:56px;height:56px;border-radius:14px;border:1px solid var(--navy-light);background:var(--navy);color:var(--gold-light);font-family:var(--font-title);font-size:1.15rem;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation;box-shadow:0 6px 14px rgba(0,0,0,.18);}
+.snake-touch-btn:active{transform:scale(.97);background:var(--gold-dim);border-color:var(--gold);}
 /* ── RADIOGRAPHY ── */
 .radio-wrap{margin-top:1.5rem;text-align:left;}
 .radio-title{font-family:'Manrope',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;}
@@ -670,6 +676,14 @@ body.light .qnav-dot.flagged-dot{box-shadow:0 0 0 2px #8a6518, 0 0 0 4px rgba(17
       <button class="snake-btn" id="snake-wrap-btn" onclick="snakeToggleWrap()">Bordes: ACTIVOS</button>
     </div>
 
+    <div class="snake-touch-controls" aria-label="Controles táctiles de Snake">
+      <button class="snake-touch-btn up" type="button" onclick="snakeSetDir(0,-1)" aria-label="Arriba">▲</button>
+      <div class="snake-touch-mid">
+        <button class="snake-touch-btn" type="button" onclick="snakeSetDir(-1,0)" aria-label="Izquierda">◀</button>
+        <button class="snake-touch-btn" type="button" onclick="snakeSetDir(1,0)" aria-label="Derecha">▶</button>
+      </div>
+      <button class="snake-touch-btn down" type="button" onclick="snakeSetDir(0,1)" aria-label="Abajo">▼</button>
+    </div>
     <div class="snake-foot">Teclas: flechas para mover · Espacio pausa · B activa/desactiva bordes · T turbo</div>
   </div>
 </div>
@@ -3401,7 +3415,7 @@ buildFlashGrid();
 renderRadiography();
 const totalQCount = MOD_Q.slice(1).reduce((sum,qs)=>sum+qs.length,0);
 const totalMods   = Object.keys(MOD_INFO).length;
-document.getElementById('home-tagline').textContent  = `${totalQCount} preguntas · ${totalMods} módulos`;
+document.getElementById('home-tagline').textContent  = `${totalQCount} preguntas · ${totalMods} módulos · diseñado para aprobar`;
 document.getElementById('home-mod-meta').textContent  = `${totalMods} módulos · ${totalQCount} preguntas`;
 buildModGrid();
 renderShortcutHelp('scr-home');
