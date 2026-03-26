@@ -369,6 +369,9 @@ body.light .qnav-dot.flagged-dot{box-shadow:0 0 0 2px #8a6518, 0 0 0 4px rgba(17
 .snake-touch-mid{display:flex;gap:.7rem;align-items:center;justify-content:center;}
 .snake-touch-btn{width:56px;height:56px;border-radius:14px;border:1px solid var(--navy-light);background:var(--navy);color:var(--gold-light);font-family:var(--font-title);font-size:1.15rem;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation;box-shadow:0 6px 14px rgba(0,0,0,.18);}
 .snake-touch-btn:active{transform:scale(.97);background:var(--gold-dim);border-color:var(--gold);}
+@media (hover:none) and (pointer:coarse){
+  .home-card[onclick="showScreen('scr-snake')"]{display:none!important;}
+}
 @media (hover:hover) and (pointer:fine){
   .snake-touch-controls{display:none;}
 }
@@ -2550,7 +2553,12 @@ document.addEventListener('visibilitychange', ()=>{
 });
 
 /* ══ NAVIGATION ══ */
+function isMobileSnakeDisabled(){
+  return window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+}
+
 function showScreen(id){
+  if(id==='scr-snake' && isMobileSnakeDisabled()) id='scr-home';
   const fromSnake = document.getElementById('scr-snake').classList.contains('active');
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
