@@ -297,6 +297,11 @@ main{max-width:780px;margin:0 auto;padding:2.5rem 1.5rem 6rem;}
 #credits-modal p{margin-bottom:.25rem;}
 #credits-modal .app-actions{justify-content:center;}
 #credits-modal .btn-secondary{padding:.42rem .95rem;font-size:.72rem;}
+#exam-thanks-modal .app-card{text-align:center;}
+#exam-thanks-modal p{margin-bottom:.55rem;}
+#exam-thanks-modal .app-actions{justify-content:center;gap:.6rem;flex-wrap:wrap;}
+#exam-thanks-modal .thanks-dismiss-btn{background:var(--navy);color:var(--gray);border:1px solid var(--navy-light);padding:.72rem 1.1rem;font-size:.78rem;letter-spacing:.04em;}
+#exam-thanks-modal .thanks-dismiss-btn:hover{background:var(--navy-mid);color:var(--white);border-color:var(--gray-dim);}
 
 /* ── THEME TOGGLE ── */
 .theme-btn{background:none;border:1px solid var(--navy-light);color:var(--gray);font-size:.85rem;width:32px;height:32px;border-radius:6px;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -459,6 +464,16 @@ body.light .qnav-dot.flagged-dot{box-shadow:0 0 0 2px #8a6518, 0 0 0 4px rgba(17
     <a class="credit-link-btn" href="https://cafecito.app/agustinrossignoli" target="_blank" rel="noopener noreferrer">Ir a Cafecito</a>
     <div class="app-actions" style="margin-top:.5rem;">
       <button class="btn-secondary" type="button" onclick="closeCreditsModal()">Cerrar</button>
+    </div>
+  </div>
+</div>
+<div class="app-modal" id="exam-thanks-modal" hidden>
+  <div class="app-card">
+    <h3>Antes de ver tus resultados</h3>
+    <p>Si te viene sirviendo el Simulador, podés agradecer por acá:</p>
+    <a class="credit-link-btn" href="https://cafecito.app/agustinrossignoli" target="_blank" rel="noopener noreferrer">Ir a Cafecito</a>
+    <div class="app-actions" style="margin-top:.7rem;">
+      <button class="btn-secondary thanks-dismiss-btn" type="button" onclick="continueExamResults()">Ver resultados</button>
     </div>
   </div>
 </div>
@@ -3110,7 +3125,7 @@ function goTo(idx){
 }
 
 /* ══ RESULTS ══ */
-function showResults(){
+function showResults(skipThanks){
   clearInterval(timerInterval);
   timerInterval = null;
   document.getElementById('timer').style.display='none';
@@ -3119,6 +3134,10 @@ function showResults(){
   document.getElementById('paused-overlay').classList.remove('show');
   document.getElementById('qnav-wrap').style.display='none';
   document.getElementById('prog-bar').style.width='100%';
+  if(mode==='exam' && !skipThanks){
+    openExamThanksModal();
+    return;
+  }
   showScreen('scr-results');
   document.getElementById('hdr-back').style.display='none';
 
@@ -3331,6 +3350,21 @@ function closeCreditsModal(){
   if(wrap) wrap.hidden = true;
 }
 
+function openExamThanksModal(){
+  const wrap = document.getElementById('exam-thanks-modal');
+  if(wrap) wrap.hidden = false;
+}
+
+function closeExamThanksModal(){
+  const wrap = document.getElementById('exam-thanks-modal');
+  if(wrap) wrap.hidden = true;
+}
+
+function continueExamResults(){
+  closeExamThanksModal();
+  showResults(true);
+}
+
 function closeAppModal(){
   const wrap = document.getElementById('app-modal');
   if(wrap) wrap.hidden = true;
@@ -3350,6 +3384,7 @@ function resetAll(force){
   closeLeaveModal();
   closeAppModal();
   closeCreditsModal();
+  closeExamThanksModal();
   snakeStop();
   clearInterval(timerInterval);
   timerInterval = null;
